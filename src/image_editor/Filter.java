@@ -2,7 +2,8 @@ package image_editor;
 
 /**
  * This interface represents an
- * image filter. 
+ * image filter, and is used by
+ * the (ImageEditor)s.
  * 
  * @author apstamp45
  * @version 1.0
