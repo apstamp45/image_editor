@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
  * This interface is used
  * to edit images.
  * 
- * @author vlasta
+ * @author apstamp45
  * @version 1.0
  */
 public interface Editor {
