@@ -68,7 +68,7 @@ public class Main {
 	public static void main(String[] args) {
 		initializeEditors();
 		processParamiters(args);
-		System.out.println(selectedEditorName);
+		System.out.println(selectedEditor);
 		System.out.println(inputImagePath);
 		System.out.println(outputImagePath);
 	}
