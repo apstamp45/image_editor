@@ -1,4 +1,4 @@
-package image_editor;
+package com.apstamp45.programs.image_editor;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
