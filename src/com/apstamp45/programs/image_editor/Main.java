@@ -45,13 +45,14 @@ public class Main {
 	private static String editor;
 	
 	public static void main(String[] args) {
-		getParamiters(args);
+		processParamiters(args);
 		System.out.println(editor);
 		System.out.println(inputImagePath);
 		System.out.println(outputImagePath);
 	}
 
-	private static void getParamiters(String[] args) {
+
+	private static void processParamiters(String[] args) {
 		if (args.length > 0) {
 			if (args.length == 1) {
 				String arg1 = args[0];
@@ -79,6 +80,7 @@ public class Main {
 					outputImagePath = String.valueOf(outputPath);
 				} else {
 					System.out.println("A full path is required for the image file.");
+					System.exit(0);
 				}
 			}
 			if (args.length == 2) {
@@ -86,13 +88,24 @@ public class Main {
 				if (arg1.charAt(0) == '/') {
 					inputImagePath = arg1;
 					String arg2 = args[1];
+					int i = 0;
+					boolean isIncompletePath = false;
+					for (char c :arg2.toCharArray()) {
+						if (arg2.charAt(i) == '/') {
+							isIncompletePath = true;
+						}
+						i++;
+					}
 					if (arg2.charAt(0) == '/') {
 						outputImagePath = arg2;
+					} else if (isIncompletePath) {
+						System.out.println("A full path is required for the image file.");
+						System.exit(0);
 					} else {
 						editor = arg2;
 						char[] $outputPath = arg1.toCharArray();
 						int lastSlashIndex = -1;
-						int i = 0;
+						i = 0;
 						for (char c: $outputPath) {
 							if (c == '/') {
 								lastSlashIndex = i;
@@ -113,10 +126,11 @@ public class Main {
 					}
 				} else {
 					System.out.println("A full path is required for the image file.");
+					System.exit(0);
 				}
 			}
 		} else {
-			System.out.println("usage: java Main <inputImage> <outputImage>(optional) <Editor>(optional)");
+			System.out.println("usage: java Main <inputImage> <outputImage>(optional) <editor>(optional)");
 		}
 	}
 
