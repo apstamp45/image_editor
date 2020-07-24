@@ -10,5 +10,6 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public interface Editor {
+	public String name;
 	public BufferedImage editImage(BufferedImage image);
 }
