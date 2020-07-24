@@ -82,7 +82,6 @@ public class Main {
 				}
 			}
 			if (args.length == 2) {
-				System.out.println(Integer.toString(args.length));
 				String arg1 = args[0];
 				if (arg1.charAt(0) == '/') {
 					inputImagePath = arg1;
