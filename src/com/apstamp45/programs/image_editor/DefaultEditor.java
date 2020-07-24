@@ -5,8 +5,9 @@ import java.awt.image.BufferedImage;
 public class DefaultEditor implements Editor {
 
 	@Override
-	public String name = "default";
-
+	public String getName() {
+		return "default";
+	}
 	@Override
 	public BufferedImage editImage(BufferedImage image) {
 		System.out.println("hi");
