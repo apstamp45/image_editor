@@ -2,7 +2,7 @@ package com.apstamp45.programs.image_editor;
 
 import java.awt.image.BufferedImage;
 
-public class TestEditor implements Editor {
+public class DefaultEditor implements Editor {
 
 	@Override
 	public String name = "default";
