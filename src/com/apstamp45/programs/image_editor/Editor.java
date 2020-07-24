@@ -9,6 +9,6 @@ import java.awt.image.BufferedImage;
  * @author vlasta
  * @version 1.0
  */
-public interface ImageEditor {
+public interface Editor {
 	public BufferedImage editImage(BufferedImage image);
 }
