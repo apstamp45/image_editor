@@ -1,4 +1,4 @@
-package com.apstamp45.programs.image_editor;
+ package com.apstamp45.programs.image_editor;
 
 /**
  * This interface represents an
