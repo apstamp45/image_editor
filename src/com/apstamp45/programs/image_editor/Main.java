@@ -1,7 +1,5 @@
 package com.apstamp45.programs.image_editor;
 
-import java.util.ArrayList;
-
 /**
  * This class lets you edit images with
  * different filters.
@@ -68,6 +66,7 @@ public class Main {
 	public static void main(String[] args) {
 		initializeEditors();
 		processParamiters(args);
+		getEditor();
 		System.out.println(selectedEditor);
 		System.out.println(inputImagePath);
 		System.out.println(outputImagePath);
@@ -193,6 +192,9 @@ public class Main {
 			editorNames[i] = e.getName();
 			i++;
 		}
+	}
+	private static void getEditor() {
+		int i = 0;
 		for (String name: editorNames) {
 			if (selectedEditorName.equalsIgnoreCase(name)) {
 				selectedEditor = editors[i];
