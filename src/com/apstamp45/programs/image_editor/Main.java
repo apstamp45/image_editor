@@ -10,12 +10,6 @@ package com.apstamp45.programs.image_editor;
 public class Main {
 
 	/**
-	 * This constant provides the default
-	 * editor to be used on the image.
-	 */
-	private static final Editor DEFAULT_EDITOR = new DefaultEditor();
-
-	/**
 	 * This constant is the default name
 	 * of the output file.
 	 */
@@ -78,36 +72,7 @@ public class Main {
 	 * @param args an array containing all the arguments.
 	 */
 	private static void processParamiters(String[] args) {
-		if (args.length > 0) {
-			if (args.length == 1) {
-				String arg1 = args[0];
-				if (!(arg1.charAt(0) == '/')) {
-					System.out.println("A full path is required for the image file.");
-					System.exit(0);
-				}
-				inputImagePath = arg1;
-				char[] $outputPath = arg1.toCharArray();
-				int lastSlashIndex = -1;
-				int i = 0;
-				for (char c: $outputPath) {
-					if (c == '/') {
-						lastSlashIndex = i;
-					}
-					i++;
-				}
-				char[] outputPath = new char[lastSlashIndex + 1 + DEFAULT_OUTPUT_FILE_NAME.length()];
-				i = 0;
-				for (char c: outputPath) {
-					if (i <= lastSlashIndex) {
-						outputPath[i] = $outputPath[i];
-					} else {
-						outputPath[i] = DEFAULT_OUTPUT_FILE_NAME.charAt(i - lastSlashIndex - 1);
-					}
-					i++;
-				}
-				outputImagePath = String.valueOf(outputPath);
-				selectedEditorName = DEFAULT_EDITOR.getName();
-			}
+		if (args.length > 1) {
 			if (args.length == 2) {
 				String arg1 = args[0];
 				if (!(arg1.charAt(0) == '/')) {
@@ -117,18 +82,15 @@ public class Main {
 				inputImagePath = arg1;
 				String arg2 = args[1];
 				int i = 0;
-				boolean isIncompletePath = false;
+				boolean isPath = false;
 				for (char c :arg2.toCharArray()) {
 					if (arg2.charAt(i) == '/') {
-						isIncompletePath = true;
+						isPath = true;
 					}
 					i++;
 				}
-				if (arg2.charAt(0) == '/') {
-					outputImagePath = arg2;
-					selectedEditorName = DEFAULT_EDITOR.getName();
-				} else if (isIncompletePath) {
-					System.out.println("A full path is required for the image file.");
+				if (isPath) {
+					System.out.println("An editor name is required to work.");
 					System.exit(0);
 				} else {
 					selectedEditorName = arg2;
@@ -171,21 +133,21 @@ public class Main {
 				selectedEditorName = arg3;
 			}
 		} else {
-			System.out.println("usage: java Main <inputImage> <outputImage>(optional) <editor>(recomended)");
+			System.out.println("usage: java Main <inputImage> <outputImage>(optional) <editor>");
 			System.exit(0);
 		}
 	}
 
 	/**
 	 * This initializes the Editors to be used (duh).
-	 * an Editor must be declated in this function
+	 * An Editor must be declated in this function
 	 * to work.
 	 */
 	private static void initializeEditors() {
 		editors = new Editor[NUMBER_OF_EDITORS];
 		editorNames = new String[NUMBER_OF_EDITORS];
 
-		editors[0] = new DefaultEditor();// ADD ALL EDITOR DECLORATIONS HERE!
+		editors[0] = new TestEditor();// ADD ALL EDITOR DECLARATIONS HERE!
 
 		int i = 0;
 		for (Editor e : editors) {
@@ -193,6 +155,12 @@ public class Main {
 			i++;
 		}
 	}
+
+	/**
+	 * This function gets the editor
+	 * that will be used durring this
+	 * program run.
+	 */
 	private static void getEditor() {
 		int i = 0;
 		for (String name: editorNames) {
@@ -201,7 +169,7 @@ public class Main {
 			}
 		}
 		if (selectedEditor == null) {
-			selectedEditor = DEFAULT_EDITOR;
+			System.out.println("Your editot name input isn't valid.");
 		}
 	}
 }

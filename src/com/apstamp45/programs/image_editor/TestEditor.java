@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 /**
  * This class is the default Editor to use if one is not specified.
  */
-public class DefaultEditor implements Editor {
+public class TestEditor implements Editor {
 
 	@Override
 	public String getName() {
