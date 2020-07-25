@@ -3,13 +3,13 @@ package com.apstamp45.programs.image_editor;
 import java.awt.image.BufferedImage;
 
 /**
- * This class is the default Editor to use if one is not specified.
+ * This class is a test Editor to use if one is not specified.
  */
 public class TestEditor implements Editor {
 
 	@Override
 	public String getName() {
-		return "default";
+		return "TEST";
 	}
 
 	@Override
