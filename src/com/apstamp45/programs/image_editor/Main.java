@@ -1,5 +1,11 @@
 package com.apstamp45.programs.image_editor;
 
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
+
 /**
  * This class lets you edit images with
  * different filters.
@@ -16,7 +22,8 @@ public class Main {
 	private static final String DEFAULT_OUTPUT_FILE_NAME = "output.png";
 
 	/**
-	 * 
+	 * This constant is to be changed when
+	 * Editors are added.
 	 */
 	private static final int NUMBER_OF_EDITORS = 1;// CHANGE THIS WHEN ADDING AN EDITOR!
 
@@ -56,11 +63,14 @@ public class Main {
 	 * names.
 	 */
 	private static String[] editorNames;
+
+	private static BufferedImage image;
 	
 	public static void main(String[] args) {
 		initializeEditors();
 		processParamiters(args);
 		getEditor();
+		getImage();
 		System.out.println(selectedEditor);
 		System.out.println(inputImagePath);
 		System.out.println(outputImagePath);
@@ -170,6 +180,23 @@ public class Main {
 		}
 		if (selectedEditor == null) {
 			System.out.println("Your editot name input isn't valid.");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private static void getImage() {
+		int width = 600;
+		int height = 388;
+		File file;
+		try {
+			file = new File(inputImagePath);
+			image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+			image = ImageIO.read(file);
+		} catch (IOException e) {
+			System.out.println("An error occured when reading the image \r(did you enter the right path?)");
+			e.printStackTrace();
 		}
 	}
 }
