@@ -184,7 +184,8 @@ public class Main {
 	}
 
 	/**
-	 * 
+	 * Gets the image from the
+	 * specified path.
 	 */
 	private static void getImage() {
 		int width = 600;
