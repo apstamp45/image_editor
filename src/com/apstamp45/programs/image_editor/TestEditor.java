@@ -9,7 +9,7 @@ public class TestEditor implements Editor {
 
 	@Override
 	public String getName() {
-		return "default";
+		return "TEST";
 	}
 
 	@Override
