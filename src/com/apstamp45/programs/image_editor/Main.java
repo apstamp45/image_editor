@@ -3,6 +3,7 @@ package com.apstamp45.programs.image_editor;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
@@ -32,6 +33,12 @@ public class Main {
 	 * was inputted by the user.
 	 */
 	private static String selectedEditorName;
+
+	/**
+	 * This array is used to store extra
+	 * paramiters used for the editors.
+	 */
+	private static String[] extraParamiters;
 
 	/**
 	 * This stores the current Editor
@@ -74,6 +81,9 @@ public class Main {
 		System.out.println(selectedEditor);
 		System.out.println(inputImagePath);
 		System.out.println(outputImagePath);
+		for (String s: extraParamiters) {
+			System.out.println(s);
+		}
 	}
 
 	/**
@@ -83,6 +93,48 @@ public class Main {
 	 */
 	private static void processParamiters(String[] args) {
 		if (args.length > 1) {
+			String arg1 = args[0];
+			if (isPath(arg1) == 1) {
+				inputImagePath = arg1;
+				String arg2 = args[1];
+				if (isPath(arg2) > -1) {
+					if (args.length >= 3) {
+						outputImagePath = arg2;
+						selectedEditorName = args[2];
+						extraParamiters = Arrays.copyOfRange(args, 3, args.length);
+					} else {
+						System.out.println("Editor name is required to work.");
+						System.exit(0);
+					}
+				} else {
+					selectedEditorName = arg2;
+					char[] $outputPath = arg1.toCharArray();
+					int lastSlashIndex = -1;
+					int i = 0;
+					for (char c: $outputPath) {
+						if (c == '/') {
+							lastSlashIndex = i;
+						}
+						i++;
+					}
+					char[] outputPath = new char[lastSlashIndex + 1 + DEFAULT_OUTPUT_FILE_NAME.length()];
+					i = 0;
+					for (char c: outputPath) {
+						if (i <= lastSlashIndex) {
+							outputPath[i] = $outputPath[i];
+						} else {
+							outputPath[i] = DEFAULT_OUTPUT_FILE_NAME.charAt(i - lastSlashIndex - 1);
+						}
+						i++;
+					}
+					outputImagePath = String.valueOf(outputPath);
+					extraParamiters = Arrays.copyOfRange(args, 2, args.length);
+				}
+			} else {
+				System.out.println("The first paramiter needs to be a complete\rpath to the image.");
+				System.exit(0);
+			}
+			/*
 			if (args.length == 2) {
 				String arg1 = args[0];
 				if (!(arg1.charAt(0) == '/')) {
@@ -142,6 +194,7 @@ public class Main {
 				outputImagePath = arg2;
 				selectedEditorName = arg3;
 			}
+			*/
 		} else {
 			System.out.println("usage: java Main <inputImage> <outputImage>(optional) <editor>");
 			System.exit(0);
@@ -179,7 +232,8 @@ public class Main {
 			}
 		}
 		if (selectedEditor == null) {
-			System.out.println("Your editot name input isn't valid.");
+			System.out.println("Your editor name input isn't valid.");
+			System.exit(0);
 		}
 	}
 
@@ -199,5 +253,30 @@ public class Main {
 			System.out.println("An error occured when reading the image \r(did you enter the right path?)");
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Returns an int depending on
+	 * the path status.
+	 * @param path a String containing
+	 * a path.
+	 * @return 
+	 * -1: the String isn't a path.
+	 * 0: the String is an incomplete path.
+	 * 1: the String is a complete path.
+	 */
+	private static int isPath(String path) {
+		if (path.charAt(0) == '/') {
+			return 1;
+		}
+		char[] $path = path.toCharArray();
+		int i = 0;
+		for (char c: $path) {
+			if (c == '/' && i > 0) {
+				return 0;
+			}
+			i++;
+		}
+		return -1;
 	}
 }
