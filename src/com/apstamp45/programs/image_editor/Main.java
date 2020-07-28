@@ -20,7 +20,7 @@ public class Main {
 	 * This constant is the default name
 	 * of the output file.
 	 */
-	private static final String DEFAULT_OUTPUT_FILE_NAME = "output.png";
+	private static final String DEFAULT_OUTPUT_FILE_NAME = "output";
 
 	/**
 	 * This constant is to be changed when
@@ -57,6 +57,12 @@ public class Main {
 	 * file.
 	 */
 	private static String outputImagePath;
+
+	/**
+	 * This String holds the extention of
+	 * the input image.
+	 */
+	private static String imageExtenstion;
 	
 	/**
 	 * This field will contain all of the
@@ -71,16 +77,27 @@ public class Main {
 	 */
 	private static String[] editorNames;
 
+	/**
+	 * The original image.
+	 */
 	private static BufferedImage image;
+
+	/**
+	 * The edited image.
+	 */
+	private static BufferedImage editedImage;
 	
 	public static void main(String[] args) {
 		initializeEditors();
 		processParamiters(args);
 		getEditor();
 		getImage();
+		editImage();
+		setImage();
 		System.out.println(selectedEditor);
 		System.out.println(inputImagePath);
 		System.out.println(outputImagePath);
+		System.out.println(imageExtenstion);
 		for (String s: extraParamiters) {
 			System.out.println(s);
 		}
@@ -96,6 +113,27 @@ public class Main {
 			String arg1 = args[0];
 			if (isPath(arg1) == 1) {
 				inputImagePath = arg1;
+				int lastDotIndex = -1;
+				int i = 0;
+				for (char c: inputImagePath.toCharArray()) {
+					if (c == '.') {
+						lastDotIndex = i;
+					}
+					i++;
+				}
+				if (lastDotIndex == -1) {
+					System.out.println("The image file isn't valid.");
+					System.exit(0);
+				}
+				char[] extention = new char[inputImagePath.length() - (lastDotIndex + 1)];
+				i = 0;
+				for (char c: inputImagePath.toCharArray()) {
+					if (i > lastDotIndex) {
+						extention[i - (lastDotIndex + 1)] = c;
+					}
+					i++;
+				}
+				imageExtenstion = String.valueOf(extention);
 				String arg2 = args[1];
 				if (isPath(arg2) > -1) {
 					if (args.length >= 3) {
@@ -110,20 +148,28 @@ public class Main {
 					selectedEditorName = arg2;
 					char[] $outputPath = arg1.toCharArray();
 					int lastSlashIndex = -1;
-					int i = 0;
+					i = 0;
 					for (char c: $outputPath) {
 						if (c == '/') {
 							lastSlashIndex = i;
 						}
 						i++;
 					}
-					char[] outputPath = new char[lastSlashIndex + 1 + DEFAULT_OUTPUT_FILE_NAME.length()];
+					char[] outputPath = new char[
+						lastSlashIndex + 2 +
+						DEFAULT_OUTPUT_FILE_NAME.length() +
+						imageExtenstion.length()];
 					i = 0;
 					for (char c: outputPath) {
 						if (i <= lastSlashIndex) {
 							outputPath[i] = $outputPath[i];
-						} else {
+						} else if (i <= lastSlashIndex + DEFAULT_OUTPUT_FILE_NAME.length()) {
 							outputPath[i] = DEFAULT_OUTPUT_FILE_NAME.charAt(i - lastSlashIndex - 1);
+						} else  if (i == (lastSlashIndex + DEFAULT_OUTPUT_FILE_NAME.length() + 1)) {
+							outputPath[i] = '.';
+						} else {
+							outputPath[i] = imageExtenstion.charAt(
+								i - (lastSlashIndex + DEFAULT_OUTPUT_FILE_NAME.length() + 2));
 						}
 						i++;
 					}
@@ -181,16 +227,33 @@ public class Main {
 	 * specified path.
 	 */
 	private static void getImage() {
-		int width = 600;
-		int height = 388;
 		File file;
 		try {
 			file = new File(inputImagePath);
-			image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 			image = ImageIO.read(file);
 		} catch (IOException e) {
 			System.out.println("An error occured when reading the image \r(did you enter the right path?)");
 			e.printStackTrace();
+			System.exit(0);
+		}
+	}
+
+	/**
+	 * Edits the image (yet another duh).
+	 */
+	private static void editImage() {
+		editedImage = selectedEditor.editImage(image);
+	}
+
+	private static void setImage() {
+		try {
+			File f = new File(outputImagePath);
+			ImageIO.write(editedImage, imageExtenstion, f);
+		} catch (IOException e) {
+			System.out.println(
+				"An error occured when writing the image \r(did you enter the right path?)");
+			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 

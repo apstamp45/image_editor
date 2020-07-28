@@ -14,7 +14,52 @@ public class TestEditor implements Editor {
 
 	@Override
 	public BufferedImage editImage(BufferedImage image) {
-		System.out.println("hi");
-		return null;
+		int width = image.getWidth();
+		int height = image.getHeight();
+		BufferedImage editedImage = image;
+		TestEditor.RGBFilter filter = new TestEditor.RGBFilter();
+		Pixel pixel;
+		Pixel editedPixel;
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				int rgb = image.getRGB(x, y);
+				pixel = Editor.rgbToPixel(rgb);
+				editedPixel = filter.filter(pixel);
+				editedImage.setRGB(x, y, Editor.pixelToRgb(editedPixel));
+			}
+		}
+		return editedImage;
+	}
+
+	/**
+	 * This class is used by this editor
+	 * to reduce each pixel to either
+	 * a red, green, or blue hue.
+	 */
+	static class RGBFilter implements Filter {
+		@Override
+		public Pixel filter(Pixel pixel) {
+			int largest;
+			if (pixel.r > pixel.g) {
+				if (pixel.r > pixel.b) {
+					largest = 0;
+				} else {
+					largest = 2;
+				}
+			} else {
+				if (pixel.g > pixel.b) {
+					largest = 1;
+				} else {
+					largest = 2;
+				}
+			}
+			if (largest == 0) {
+				return new Pixel(255, 0, 0);
+			} else if (largest == 1) {
+				return new Pixel(0, 255, 0);
+			} else {
+				return new Pixel(0, 0, 255);
+			}
+		}
 	}
 }
