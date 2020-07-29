@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * to edit images.
  * 
  * @author apstamp45
- * @version 1.2
+ * @version 1.3
  */
 public interface Editor {
 	/**
@@ -35,11 +35,28 @@ public interface Editor {
 		int b = rgb & 0xff;
 		return new Pixel(r, g, b);
 	}
-
+	/**
+	 * This function gets an rgb int value
+	 * from a Pixel.
+	 * @param pixel the pixel.
+	 * @return the rgb value.
+	 */
 	public static int pixelToRgb(Pixel pixel) {
-		int rgb = pixel.r;
-		rgb = (rgb << 8) + pixel.g;
-		rgb = (rgb << 8) + pixel.b;
+		int rgb = rgbToInt(pixel.r, pixel.g, pixel.b);
+		return rgb;
+	}
+
+	/**
+	 * This converts rgb values to an int.
+	 * @param r
+	 * @param g
+	 * @param b
+	 * @return
+	 */
+	public static int rgbToInt(int r, int g, int b) {
+		int rgb = r;
+		rgb = (rgb << 8) + g;
+		rgb = (rgb << 8) + b;
 		return rgb;
 	}
 }
