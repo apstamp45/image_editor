@@ -90,17 +90,12 @@ public class Main {
 	public static void main(String[] args) {
 		initializeEditors();
 		processParamiters(args);
+		System.out.println(inputImagePath);
+		System.out.println(outputImagePath);
 		getEditor();
 		getImage();
 		editImage();
 		setImage();
-		System.out.println(selectedEditor);
-		System.out.println(inputImagePath);
-		System.out.println(outputImagePath);
-		System.out.println(imageExtenstion);
-		for (String s: extraParamiters) {
-			System.out.println(s);
-		}
 	}
 
 	/**
@@ -144,8 +139,7 @@ public class Main {
 						System.out.println("Editor name is required to work.");
 						System.exit(0);
 					}
-				} else {
-					selectedEditorName = arg2;
+				} else {selectedEditorName = arg2;
 					char[] $outputPath = arg1.toCharArray();
 					int lastSlashIndex = -1;
 					i = 0;
@@ -159,8 +153,7 @@ public class Main {
 						lastSlashIndex + 2 +
 						DEFAULT_OUTPUT_FILE_NAME.length() +
 						imageExtenstion.length()];
-					i = 0;
-					for (char c: outputPath) {
+					for (i = 0; i < outputPath.length; i++) {
 						if (i <= lastSlashIndex) {
 							outputPath[i] = $outputPath[i];
 						} else if (i <= lastSlashIndex + DEFAULT_OUTPUT_FILE_NAME.length()) {
@@ -171,7 +164,6 @@ public class Main {
 							outputPath[i] = imageExtenstion.charAt(
 								i - (lastSlashIndex + DEFAULT_OUTPUT_FILE_NAME.length() + 2));
 						}
-						i++;
 					}
 					outputImagePath = String.valueOf(outputPath);
 					extraParamiters = Arrays.copyOfRange(args, 2, args.length);
