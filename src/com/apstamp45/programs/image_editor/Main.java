@@ -90,8 +90,6 @@ public class Main {
 	public static void main(String[] args) {
 		initializeEditors();
 		processParamiters(args);
-		System.out.println(inputImagePath);
-		System.out.println(outputImagePath);
 		getEditor();
 		getImage();
 		editImage();
@@ -169,7 +167,7 @@ public class Main {
 					extraParamiters = Arrays.copyOfRange(args, 2, args.length);
 				}
 			} else {
-				System.out.println("The first paramiter needs to be a complete\rpath to the image.");
+				System.out.println("The first paramiter needs to be a complete\npath to the image.");
 				System.exit(0);
 			}
 		} else {
@@ -208,6 +206,7 @@ public class Main {
 			if (selectedEditorName.equalsIgnoreCase(name)) {
 				selectedEditor = editors[i];
 			}
+			i++;
 		}
 		if (selectedEditor == null) {
 			System.out.println("Your editor name input isn't valid.");
@@ -225,7 +224,7 @@ public class Main {
 			file = new File(inputImagePath);
 			image = ImageIO.read(file);
 		} catch (IOException e) {
-			System.out.println("An error occured when reading the image \r(did you enter the right path?)");
+			System.out.println("An error occured when reading the image \n(did you enter the right path?)");
 			e.printStackTrace();
 			System.exit(0);
 		}
@@ -244,7 +243,7 @@ public class Main {
 			ImageIO.write(editedImage, imageExtenstion, f);
 		} catch (IOException e) {
 			System.out.println(
-				"An error occured when writing the image \r(did you enter the right path?)");
+				"An error occured when writing the image \n(did you enter the right path?)");
 			e.printStackTrace();
 			System.exit(0);
 		}
