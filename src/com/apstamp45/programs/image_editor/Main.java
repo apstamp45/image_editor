@@ -195,8 +195,8 @@ public class Main {
 		editors = new Editor[NUMBER_OF_EDITORS];
 		editorNames = new String[NUMBER_OF_EDITORS];
 
-		editors[0] = new TestEditor();// ADD ALL EDITOR DECLARATIONS HERE!
-		editors[1] = new RGBEditor();
+		editors[0] = new RGBEditor();// ADD ALL EDITOR DECLARATIONS HERE!
+		editors[1] = new WhiteEditor();
 
 		int i = 0;
 		for (Editor e : editors) {
