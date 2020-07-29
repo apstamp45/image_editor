@@ -21,7 +21,7 @@ public class RGBEditor implements Editor {
 		int width = image.getWidth();
 		int height = image.getHeight();
 		BufferedImage editedImage = image;
-		TestEditor.RGBFilter filter = new TestEditor.RGBFilter();
+		RGBEditor.RGBFilter filter = new RGBEditor.RGBFilter();
 		Pixel pixel;
 		Pixel editedPixel;
 		for (int x = 0; x < width; x++) {
