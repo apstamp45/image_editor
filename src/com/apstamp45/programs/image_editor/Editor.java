@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * to edit images.
  * 
  * @author apstamp45
- * @version 1.0
+ * @version 1.2
  */
 public interface Editor {
 	/**
@@ -23,7 +23,7 @@ public interface Editor {
 	 * @param image the original image.
 	 * @return the edited image.
 	 */
-	public BufferedImage editImage(BufferedImage image);
+	public BufferedImage editImage(BufferedImage image, String[] args);
 
 	/**
 	 * This function returns a Pixel with

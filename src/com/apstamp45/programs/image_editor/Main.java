@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  * different filters.
  * 
  * @author apstamp45
- * @version 0.2
+ * @version 1.0
  */
 public class Main {
 
@@ -26,7 +26,7 @@ public class Main {
 	 * This constant is to be changed when
 	 * Editors are added.
 	 */
-	private static final int NUMBER_OF_EDITORS = 1;// CHANGE THIS WHEN ADDING AN EDITOR!
+	private static final int NUMBER_OF_EDITORS = 2;// CHANGE THIS WHEN ADDING AN EDITOR!
 
 	/**
 	 * This stores the editor name that
@@ -196,6 +196,7 @@ public class Main {
 		editorNames = new String[NUMBER_OF_EDITORS];
 
 		editors[0] = new TestEditor();// ADD ALL EDITOR DECLARATIONS HERE!
+		editors[1] = new RGBEditor();
 
 		int i = 0;
 		for (Editor e : editors) {
@@ -242,7 +243,7 @@ public class Main {
 	 * Edits the image (yet another duh).
 	 */
 	private static void editImage() {
-		editedImage = selectedEditor.editImage(image);
+		editedImage = selectedEditor.editImage(image, extraParamiters);
 	}
 
 	private static void setImage() {
