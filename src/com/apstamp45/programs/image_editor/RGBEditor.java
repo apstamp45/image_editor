@@ -3,16 +3,17 @@ package com.apstamp45.programs.image_editor;
 import java.awt.image.BufferedImage;
 
 /**
- * This Editor is used to test things.
+ * This editor makes each pixel of an
+ * image either red, green, or blue.
  * 
  * @author apstamp45
  * @version 1.0
  */
-public class TestEditor implements Editor {
-
-	@Override
+public class RGBEditor implements Editor {
+    
+    @Override
 	public String getName() {
-		return "TEST";
+		return "RGB";
 	}
 
 	@Override
