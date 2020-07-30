@@ -24,6 +24,14 @@ public class Pixel {
 	public int b;
 
 	public Pixel(int r, int g, int b) {
+		if (
+			r > 255 || r < 0 ||
+			g > 255 || g < 0 ||
+			b > 255 || b < 0
+			) {
+			System.out.println("Invalid rgb values were passed into\nthe Pixel constructor.");
+			System.exit(0);
+		}
 		this.r = r;
 		this.g = g;
 		this.b = b;
