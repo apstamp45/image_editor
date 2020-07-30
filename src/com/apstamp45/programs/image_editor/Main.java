@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 /**
@@ -229,7 +230,6 @@ public class Main {
 			image = ImageIO.read(file);
 		} catch (IOException e) {
 			System.out.println("An error occured when reading the image \n(did you enter the right path?)");
-			e.printStackTrace();
 			System.exit(0);
 		}
 	}
