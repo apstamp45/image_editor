@@ -186,7 +186,7 @@ public class Main {
 		editorNames = new String[NUMBER_OF_EDITORS];
 
 		editors[0] = new RGBEditor();// ADD ALL EDITOR DECLARATIONS HERE!
-		editors[1] = new WhiteEditor();
+		editors[1] = new BlackWhiteEditor();
 
 		int i = 0;
 		for (Editor e : editors) {
@@ -210,6 +210,10 @@ public class Main {
 		}
 		if (selectedEditor == null) {
 			System.out.println("Your editor name input isn't valid.");
+			System.out.println("Here is a list of valid editor names:");
+			for (String name: editorNames) {
+				System.out.println(name);
+			}
 			System.exit(0);
 		}
 	}
