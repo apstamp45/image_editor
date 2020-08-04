@@ -1,6 +1,7 @@
 package com.apstamp45.programs.image_editor;
 
 import java.awt.image.BufferedImage;
+import java.math.BigInteger;
 
 /**
  * This Editor makes white areas
@@ -18,7 +19,7 @@ public class BlackWhiteEditor implements Editor {
         BufferedImage editedImage = image;
         int threshold = 0;
         int numberOfPixels = 0;
-        int rgbTotal = 0;
+        long  rgbTotal = 0;
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
                 numberOfPixels++;
@@ -26,8 +27,10 @@ public class BlackWhiteEditor implements Editor {
                 rgbTotal += pixel.r + pixel.g + pixel.b;
             }
         }
+        BigInteger total = BigInteger.valueOf(rgbTotal);
         BlackWhiteEditor.WhiteFilter filter = new BlackWhiteEditor.WhiteFilter();
-        threshold = rgbTotal / (numberOfPixels * 3);
+        threshold = total.divide(BigInteger.valueOf((long) (numberOfPixels * 3))).intValue();
+        System.out.println(threshold);
         filter.setThreshold(threshold);
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
