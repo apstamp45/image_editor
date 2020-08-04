@@ -30,7 +30,6 @@ public class BlackWhiteEditor implements Editor {
         BigInteger total = BigInteger.valueOf(rgbTotal);
         BlackWhiteEditor.WhiteFilter filter = new BlackWhiteEditor.WhiteFilter();
         threshold = total.divide(BigInteger.valueOf((long) (numberOfPixels * 3))).intValue();
-        System.out.println(threshold);
         filter.setThreshold(threshold);
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
