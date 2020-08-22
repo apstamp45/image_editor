@@ -1,11 +1,10 @@
-package com.apstamp45.programs.image_editor;
+package com.apstamp45.image_editor;
 
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
-import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 /**
